@@ -1,35 +1,35 @@
 package com.syncrhrohealth.bandpass_ble_connection
 
-import androidx.annotation.NonNull
-
+import com.syncrhrohealth.bandpass_ble_connection.plugin.devicecore.event.DeviceCoreEventPlugin
+import com.syncrhrohealth.bandpass_ble_connection.plugin.devicecore.method.DeviceCoreMethodPlugin
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.plugin.common.MethodCall
-import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.MethodChannel.Result
 
-/** BandpassBleConnectionPlugin */
-class BandpassBleConnectionPlugin: FlutterPlugin, MethodCallHandler {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
-  private lateinit var channel : MethodChannel
+/** BandpassBleConnectionPlugin
+ *
+ *  Primary entry point for our Flutter plugin. This plugin
+ *  internally registers two sub-plugins:
+ *   - DeviceCoreMethodPlugin (MethodChannel)
+ *   - DeviceCoreEventPlugin  (EventChannel)
+ * */
+class BandpassBleConnectionPlugin : FlutterPlugin {
 
-  override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "bandpass_ble_connection")
-    channel.setMethodCallHandler(this)
-  }
+    private var deviceCoreMethodPlugin: DeviceCoreMethodPlugin? = null
+    private var deviceCoreEventPlugin: DeviceCoreEventPlugin? = null
 
-  override fun onMethodCall(call: MethodCall, result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    } else {
-      result.notImplemented()
+    override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        // Create + attach the sub-plugins
+        deviceCoreMethodPlugin = DeviceCoreMethodPlugin().also {
+            it.onAttachedToEngine(binding)
+        }
+
+        deviceCoreEventPlugin = DeviceCoreEventPlugin().also {
+            it.onAttachedToEngine(binding)
+        }
     }
-  }
 
-  override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-    channel.setMethodCallHandler(null)
-  }
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        // Detach each sub-plugin
+        deviceCoreMethodPlugin?.onDetachedFromEngine(binding)
+        deviceCoreEventPlugin?.onDetachedFromEngine(binding)
+    }
 }
