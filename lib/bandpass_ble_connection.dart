@@ -1,3 +1,4 @@
+import 'package:bandpass_ble_connection/plugin/device_core/models/connected_device.dart';
 
 import 'application/permission_utils.dart';
 import 'bandpass_ble_connection_platform_interface.dart';
@@ -11,7 +12,7 @@ class BandpassBleConnection {
     return BandpassBleConnectionPlatform.instance.getPlatformVersion();
   }
 
-    static Future<void> checkPermission() async {
+  static Future<void> checkPermission() async {
     await PermissionUtils.requestBluetoothPermission();
     await PermissionUtils.requestLocationPermission();
   }
@@ -28,6 +29,14 @@ class BandpassBleConnection {
     await DeviceCorePlugin.stopScan();
   }
 
+  static connect(String address) async {
+    await DeviceCorePlugin.connect(address);
+  }
+
+  static disconnect(String address) async {
+    await DeviceCorePlugin.disconnect(address);
+  }
+
   static subscribePluginEvents() {
     DeviceCorePlugin.subscribeEvents();
   }
@@ -42,6 +51,20 @@ class BandpassBleConnection {
         switch (event.event) {
           case EventEnum.onDeviceFound:
             onDeviceFound(event.toScannedDevice());
+            break;
+          default:
+            break;
+        }
+      },
+    );
+  }
+
+  static void listenConnectedDevice(Function(ConnectedDevice) onDeviceConnected) {
+    DeviceCorePlugin.listenEvent().listen(
+      (event) {
+        switch (event.event) {
+          case EventEnum.onDeviceConnected:
+            onDeviceConnected(event.toConnectedDevice());
             break;
           default:
             break;
