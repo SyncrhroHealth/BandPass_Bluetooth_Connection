@@ -11,10 +11,8 @@ import com.syncrhrohealth.bandpass_ble_connection.ble.BleStateController
 import com.syncrhrohealth.bandpass_ble_connection.ble.FoundDevice
 import com.syncrhrohealth.bandpass_ble_connection.core.handler.DeviceHandler
 import com.syncrhrohealth.bandpass_ble_connection.core.handler.DeviceHandlerCallBack
-import com.syncrhrohealth.bandpass_ble_connection.core.model.BasicInfo
 import com.syncrhrohealth.bandpass_ble_connection.core.model.DeviceInfo
-import com.syncrhrohealth.bandpass_ble_connection.core.model.HotBoxData
-import com.syncrhrohealth.bandpass_ble_connection.core.model.Schedule
+import com.syncrhrohealth.bandpass_ble_connection.core.model.IMUData
 import com.syncrhrohealth.bandpass_ble_connection.core.model.TimeStamp
 import com.syncrhrohealth.bandpass_ble_connection.util.SingletonHolder
 import java.util.Timer
@@ -196,29 +194,12 @@ class CoreHandler private constructor(private val context: Context) : DeviceHand
 //        handler.reconnect()
     }
 
-    override fun onDeviceNameRsp(deviceName: String, handler: DeviceHandler) {
-        coreHandlerCallBack?.onDeviceNameRsp(deviceName, handler)
-    }
-
     override fun onDeviceInfoRsp(deviceInfo: DeviceInfo, handler: DeviceHandler) {
         coreHandlerCallBack?.onDeviceInfoRsp(deviceInfo, handler)
     }
 
-    override fun onBasicInfoRsp(basicInfo: BasicInfo, handler: DeviceHandler) {
-        coreHandlerCallBack?.onBasicInfoRsp(basicInfo, handler)
-    }
-
-    override fun onHotBoxDataRsp(hotBoxData: HotBoxData, handler: DeviceHandler) {
-        Log.e(tag, "onHotBoxDataRsp: " )
-        coreHandlerCallBack?.onHotBoxDataRsp(hotBoxData, handler)
-    }
-
-    override fun onTimeStampRsp(timeStamp: TimeStamp, handler: DeviceHandler) {
-        coreHandlerCallBack?.onTimeStampRsp(timeStamp, handler)
-    }
-
-    override fun onScheduleRsp(schedule: Schedule, handler: DeviceHandler) {
-        coreHandlerCallBack?.onScheduleRsp(schedule, handler)
+    override fun onImuDataRsp(imuRsp: IMUData, handler: DeviceHandler) {
+        coreHandlerCallBack?.onImuDataRsp(imuRsp, handler)
     }
 
     /**********************************************************************************************

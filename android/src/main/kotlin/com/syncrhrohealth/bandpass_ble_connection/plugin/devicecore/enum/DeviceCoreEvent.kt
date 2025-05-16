@@ -8,10 +8,6 @@ enum class DeviceCoreEvent(val value: String) {
     ON_DEVICE_DISCONNECTED("onDeviceDisconnected"),
 
     // Data response
-    ON_DEVICE_NAME_RSP("onDeviceNameRsp"),
     ON_DEVICE_INFO_RSP("onDeviceInfoRsp"),
-    ON_BASIC_INFO_RSP("onBasicInfoRsp"),
-    ON_HOT_BOX_DATA_RSP("onHotBoxDataRsp"),
-    ON_TIME_STAMP_RSP("onTimeStampRsp"),
-    ON_SCHEDULE_RSP("onScheduleRsp"),
+    ON_IMU_DATA_RSP("onImuDataRsp"),
 }
