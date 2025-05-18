@@ -93,7 +93,7 @@ class BandpassBleConnection {
     DeviceCorePlugin.listenEvent().listen(
       (event) {
         switch (event.event) {
-          case EventEnum.onReceiveImuData:
+          case EventEnum.onImuDataRsp:
             onReceiveImuData(event.toImuData());
             break;
           default:

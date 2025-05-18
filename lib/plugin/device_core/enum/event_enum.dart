@@ -7,7 +7,7 @@ enum EventEnum {
 
   // Data Response
   onDeviceInfoRsp,
-  onReceiveImuData;
+  onImuDataRsp;
 
   static EventEnum? from(String value) {
     switch (value) {
@@ -22,8 +22,8 @@ enum EventEnum {
       // Data Response
       case 'onDeviceInfoRsp':
         return EventEnum.onDeviceInfoRsp;
-      case 'onReceiveImuData':
-        return EventEnum.onReceiveImuData;
+      case 'onImuDataRsp':
+        return EventEnum.onImuDataRsp;
       default:
         return null;
     }
