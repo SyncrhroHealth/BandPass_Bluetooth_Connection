@@ -1,12 +1,9 @@
+import 'package:bandpass_ble_connection/plugin/device_core/models/disconnected_device.dart';
+import 'package:bandpass_ble_connection/plugin/device_core/models/imu_data.dart';
 
 import 'enum/event_enum.dart';
-import 'models/basic_info.dart';
-import 'models/battery_info.dart';
 import 'models/connected_device.dart';
-import 'models/device_info.dart';
 import 'models/found_device.dart';
-import 'models/hot_box_data.dart';
-import 'models/schedule.dart';
 
 class DeviceEventTask {
   final EventEnum? event;
@@ -28,23 +25,11 @@ class DeviceEventTask {
     return ConnectedDevice.fromMap(data);
   }
 
-  DeviceInfo toDeviceInfo() {
-    return DeviceInfo.fromMap(data);
+  DisconnectedDevice toDisconnectedDevice() {
+    return DisconnectedDevice.fromMap(data);
   }
 
-  BatteryInfo toBatteryInfo() {
-    return BatteryInfo.fromMap(data);
-  }
-
-  BasicInfo toBasicInfo() {
-    return BasicInfo.fromMap(data);
-  }
-
-  HotBoxData toHotBoxData() {
-    return HotBoxData.fromMap(data);
-  }
-
-  Schedule toSchedule() {
-    return Schedule.fromMap(data);
+  ImuData toImuData() {
+    return ImuData.fromMap(data);
   }
 }

@@ -6,12 +6,8 @@ enum EventEnum {
   onDeviceDisconnected,
 
   // Data Response
-  onDeviceNameRsp,
   onDeviceInfoRsp,
-  onBasicInfoRsp,
-  onHotBoxDataRsp,
-  onTimeStampRsp,
-  onScheduleRsp;
+  onReceiveImuData;
 
   static EventEnum? from(String value) {
     switch (value) {
@@ -24,18 +20,10 @@ enum EventEnum {
         return EventEnum.onDeviceDisconnected;
 
       // Data Response
-      case 'onDeviceNameRsp':
-        return EventEnum.onDeviceNameRsp;
       case 'onDeviceInfoRsp':
         return EventEnum.onDeviceInfoRsp;
-      case 'onBasicInfoRsp':
-        return EventEnum.onBasicInfoRsp;
-      case 'onHotBoxDataRsp':
-        return EventEnum.onHotBoxDataRsp;
-      case 'onTimeStampRsp':
-        return EventEnum.onTimeStampRsp;
-      case 'onScheduleRsp':
-        return EventEnum.onScheduleRsp;
+      case 'onReceiveImuData':
+        return EventEnum.onReceiveImuData;
       default:
         return null;
     }

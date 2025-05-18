@@ -1,4 +1,6 @@
 import 'package:bandpass_ble_connection/plugin/device_core/models/connected_device.dart';
+import 'package:bandpass_ble_connection/plugin/device_core/models/disconnected_device.dart';
+import 'package:bandpass_ble_connection/plugin/device_core/models/imu_data.dart';
 
 import 'application/permission_utils.dart';
 import 'bandpass_ble_connection_platform_interface.dart';
@@ -65,6 +67,34 @@ class BandpassBleConnection {
         switch (event.event) {
           case EventEnum.onDeviceConnected:
             onDeviceConnected(event.toConnectedDevice());
+            break;
+          default:
+            break;
+        }
+      },
+    );
+  }
+
+  static void listenDisconnectedDevice(Function(DisconnectedDevice) onDeviceDisonnected) {
+    DeviceCorePlugin.listenEvent().listen(
+      (event) {
+        switch (event.event) {
+          case EventEnum.onDeviceDisconnected:
+            onDeviceDisonnected(event.toDisconnectedDevice());
+            break;
+          default:
+            break;
+        }
+      },
+    );
+  }
+
+  static void listenImuData(Function(ImuData) onReceiveImuData) {
+    DeviceCorePlugin.listenEvent().listen(
+      (event) {
+        switch (event.event) {
+          case EventEnum.onReceiveImuData:
+            onReceiveImuData(event.toImuData());
             break;
           default:
             break;

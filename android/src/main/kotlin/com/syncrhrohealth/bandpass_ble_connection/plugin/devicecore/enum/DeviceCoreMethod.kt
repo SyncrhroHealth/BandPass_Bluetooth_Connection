@@ -17,6 +17,4 @@ enum class DeviceCoreMethod(val value: String) {
 
     // Device commands
     GET_DEVICE_INFO("getDeviceInfo"),
-    SET_TIME_STAMP("setTimeStamp"),
-    GET_TIME_STAMP("getTimeStamp"),
 }

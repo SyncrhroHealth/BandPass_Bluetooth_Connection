@@ -15,22 +15,7 @@ enum MethodEnum {
   reconnectDevices('reconnectDevices'),
 
   // Device commands
-  getDeviceName('getDeviceName'),
-  setDeviceName('setDeviceName'),
   getDeviceInfo('getDeviceInfo'),
-  setThermostatControlMode('setThermostatControlMode'),
-  setManualControlMode('setManualControlMode'),
-  getBasicInfo('getBasicInfo'),
-  getHotBoxData('getHotBoxData'),
-  setTimeStamp('setTimeStamp'),
-  getTimeStamp('getTimeStamp'),
-  getSchedule('getSchedule'),
-  setSchedule('setSchedule'),
-  resetFuelLevel('resetFuelLevel'),
-  setFuelCapacity('setFuelCapacity'),
-  setFuelPump('setFuelPump'),
-  setSeaLevel('setSeaLevel'),
-  setTempOffset('setTempOffset'),
   ;
 
   final String value;
