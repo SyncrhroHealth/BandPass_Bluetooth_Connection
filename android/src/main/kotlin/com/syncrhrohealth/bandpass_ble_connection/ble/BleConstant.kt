@@ -2,13 +2,13 @@ package com.syncrhrohealth.bandpass_ble_connection.ble
 
 
 object BleConstant {
-    const val SERVICE_UUID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
+    const val SERVICE_UUID = "00001523-1212-efde-1523-78123ABCD123"
 
     // Transfer command to device
-    const val CENTRAL_TX_CHARACTERISTIC_UUID = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
+    const val CENTRAL_TX_CHARACTERISTIC_UUID = "00001525-1212-efde-1523-78123ABCD123"
 
     // Receive response from device
-    const val CENTRAL_RX_CHARACTERISTIC_UUID = "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
+    const val CENTRAL_RX_CHARACTERISTIC_UUID = "00001524-1212-efde-1523-78123ABCD123"
 
     const val MAX_ACCEPTED_RSSI = -70
     const val REQUEST_MTU_SIZE = 512

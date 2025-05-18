@@ -25,4 +25,9 @@ class ImuData {
       timestampMs: map['timestampMs'],
     );
   }
+
+  @override
+  String toString() {
+    return 'ImuData(count: $count, accel: $accel, gyro: $gyro, adcRaw: $adcRaw, timestampMs: $timestampMs)';
+  }
 }
