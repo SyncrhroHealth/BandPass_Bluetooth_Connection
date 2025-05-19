@@ -151,7 +151,7 @@ class BleConnection(
             gatt: BluetoothGatt,
             characteristic: BluetoothGattCharacteristic
         ) {
-            Log.e(TAG, "onCharacteristicChanged: $value")
+            Log.e(TAG, "onCharacteristicChanged: ${characteristic.value}")
             when (characteristic.uuid.toString().lowercase()) {
                 BleConstant.CENTRAL_RX_CHARACTERISTIC_UUID -> {
                     callback.onDataReceived(gatt.device, characteristic.value)
