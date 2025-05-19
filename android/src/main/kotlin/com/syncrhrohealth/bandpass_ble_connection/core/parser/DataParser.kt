@@ -1,5 +1,6 @@
 package com.syncrhrohealth.bandpass_ble_connection.core.parser
 
+import android.util.Log
 import com.syncrhrohealth.bandpass_ble_connection.core.enum.CommandCode
 import com.syncrhrohealth.bandpass_ble_connection.core.handler.DeviceHandler
 import com.syncrhrohealth.bandpass_ble_connection.core.model.Header
@@ -32,6 +33,7 @@ class DataParser(private val handler: DeviceHandler, private val callback: (Pack
 
 
     private fun parse(bytesPacket: ByteArray) {
+        Log.e(this.javaClass.simpleName, "bytesPacket: $bytesPacket")
         val header = readHeader(bytesPacket)
         if (header.commandCode != null) {
             val data = readData(bytesPacket)
