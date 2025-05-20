@@ -1,17 +1,15 @@
 package com.syncrhrohealth.bandpass_ble_connection.core.model
 
-import com.syncrhrohealth.bandpass_ble_connection.core.enum.CommandCode
-
 
 data class Header(
-    val commandCode: CommandCode?,
-    val length: Int,
-    val msgIndex: Int
+    val type: Byte
 ) {
     companion object {
-        const val HEADER_SIZE = 4
+        /** Size of the header in bytes: only the one payload-type byte. */
+        const val HEADER_SIZE = 1
     }
 }
+
 
 data class Packet(val header: Header, val data: ByteArray) {
     // TODO, check why they use these below functions

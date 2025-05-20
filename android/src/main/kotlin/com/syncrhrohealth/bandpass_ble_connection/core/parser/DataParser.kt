@@ -35,7 +35,7 @@ class DataParser(private val handler: DeviceHandler, private val callback: (Pack
     private fun parse(bytesPacket: ByteArray) {
         Log.e(this.javaClass.simpleName, "bytesPacket: $bytesPacket")
         val header = readHeader(bytesPacket)
-        if (header.commandCode != null) {
+        if (header != null) {
             val data = readData(bytesPacket)
             callback(Packet(header, data))
         }
@@ -43,21 +43,24 @@ class DataParser(private val handler: DeviceHandler, private val callback: (Pack
 
     /** Packet structure:
      *
-     * Header (4 bytes): CMD(1 byte) , LEN(1 byte) , MSG_INDEX(2 bytes)
+     * Header (1 bytes): Data type(1 byte)
      * DATA (256 bytes)
      *
      */
 
-    /** Header is from pos 0 to 4  of packet
-     * Header.HEADER_SIZE = 4
+    /** Header is from pos 0 to 1  of packet
+     * Header.HEADER_SIZE = 1
      * */
-    private fun readHeader(bytesPacket: ByteArray): Header {
-        val headerBytes = ByteUtils.subByteStartStopArray(bytesPacket, 0, Header.HEADER_SIZE)
-        return Header(
-            CommandCode.fromValue(headerBytes[0].toInt() and 0xFF),
-            headerBytes[1].toInt() and 0xFF,
-            (bytesPacket[2].toInt() and 0xFF) or ((bytesPacket[3].toInt() and 0xFF) shl 8),
-        )
+    private fun readHeader(bytesPacket: ByteArray): Header? {
+        try {
+            val headerBytes = ByteUtils.subByteStartStopArray(bytesPacket, 0, Header.HEADER_SIZE)
+            return Header(
+                headerBytes[0]
+            )
+        } catch (e: Exception) {
+            return null
+        }
+
     }
 
     /** Data is from pos 4 to length of packet
