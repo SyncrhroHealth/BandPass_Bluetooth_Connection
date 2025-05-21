@@ -36,8 +36,7 @@ class DataParser(private val handler: DeviceHandler, private val callback: (Pack
         Log.e(this.javaClass.simpleName, "bytesPacket: $bytesPacket")
         val header = readHeader(bytesPacket)
         if (header != null) {
-            val data = readData(bytesPacket)
-            callback(Packet(header, data))
+            callback(Packet(header, bytesPacket))
         }
     }
 
@@ -63,10 +62,10 @@ class DataParser(private val handler: DeviceHandler, private val callback: (Pack
 
     }
 
-    /** Data is from pos 4 to length of packet
-     * Header.HEADER_SIZE = 4
-     * */
-    private fun readData(bytesPacket: ByteArray): ByteArray {
-        return ByteUtils.subByteStartStopArray(bytesPacket, Header.HEADER_SIZE, bytesPacket.size)
-    }
+//    /** Data is from pos 4 to length of packet
+//     * Header.HEADER_SIZE = 4
+//     * */
+//    private fun readData(bytesPacket: ByteArray): ByteArray {
+//        return ByteUtils.subByteStartStopArray(bytesPacket, Header.HEADER_SIZE, bytesPacket.size)
+//    }
 }

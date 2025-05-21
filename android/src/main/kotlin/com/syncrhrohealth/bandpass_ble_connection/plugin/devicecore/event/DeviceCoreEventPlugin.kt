@@ -91,14 +91,15 @@ class DeviceCoreEventPlugin : FlutterPlugin,
     override fun onImuDataRsp(imuRsp: IMUData, handler: DeviceHandler) {
         val map = mapOf(
             "address" to handler.getDevice().getAddress(),
-            // TODO: Uncomment and implement the IMUData fields
-//            "timestamp" to imuRsp.timestamp,
-//            "accX" to imuRsp.accX,
-//            "accY" to imuRsp.accY,
-//            "accZ" to imuRsp.accZ,
-//            "gyroX" to imuRsp.gyroX,
-//            "gyroY" to imuRsp.gyroY,
-//            "gyroZ" to imuRsp.gyroZ,
+            "timestamp" to imuRsp.timestampMs,
+            "count" to imuRsp.count,
+            "accX" to imuRsp.accelX,
+            "accY" to imuRsp.accelY,
+            "accZ" to imuRsp.accelZ,
+            "gyroX" to imuRsp.gyrosX,
+            "gyroY" to imuRsp.gyrosY,
+            "gyroZ" to imuRsp.gyrosZ,
+            "adcRaw" to imuRsp.adcRaw
         )
 
         eventHandler.send(DeviceCoreEventTask(DeviceCoreEvent.ON_IMU_DATA_RSP.value, map))
