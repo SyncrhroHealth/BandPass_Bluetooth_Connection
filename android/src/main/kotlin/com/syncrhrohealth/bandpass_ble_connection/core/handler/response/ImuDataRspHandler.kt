@@ -90,6 +90,9 @@ object ImuDataRspHandler {
                 adcRaw,
                 timestampMs
             )
+
+            Log.d(TAG, "IMUData: $imuData")
+
             handler.callBack.onImuDataRsp(imuData, handler)
 
         } catch (e: Exception) {

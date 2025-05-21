@@ -33,7 +33,6 @@ class DataParser(private val handler: DeviceHandler, private val callback: (Pack
 
 
     private fun parse(bytesPacket: ByteArray) {
-        Log.e(this.javaClass.simpleName, "bytesPacket: $bytesPacket")
         val header = readHeader(bytesPacket)
         if (header != null) {
             callback(Packet(header, bytesPacket))
