@@ -91,7 +91,7 @@ class DeviceCoreEventPlugin : FlutterPlugin,
     override fun onImuDataRsp(imuRsp: IMUData, handler: DeviceHandler) {
         val map = mapOf(
             "address" to handler.getDevice().getAddress(),
-            "timestamp" to imuRsp.timestampMs,
+            "timestampMs" to imuRsp.timestampMs,
             "count" to imuRsp.count,
             "accelX" to imuRsp.accelX,
             "accelY" to imuRsp.accelY,

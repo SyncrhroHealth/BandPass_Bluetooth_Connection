@@ -23,7 +23,10 @@ class ImuData {
     required this.timestampMs,
   });
 
-  factory ImuData.fromMap(Map<String, dynamic> map) {
+  /// Accepts a dynamic map (e.g. Map<Object?,Object?>) and
+  /// casts it into a Map<String,dynamic> for safe lookup.
+  factory ImuData.fromMap(dynamic raw) {
+    final map = Map<String, dynamic>.from(raw as Map);
     return ImuData(
       count: map['count'] as int,
       accelX: (map['accelX'] as num).toDouble(),
