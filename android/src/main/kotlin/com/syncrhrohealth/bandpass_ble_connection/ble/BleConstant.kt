@@ -15,5 +15,6 @@ object BleConstant {
 
     const val CCC_BITS_UUID = "00002902-0000-1000-8000-00805f9b34fb"
 
-    const val DEVICE_PREFIX = "BandPass"
+//    const val DEVICE_PREFIX = "BandPass"
+    const val DEVICE_PREFIX = "BANDPASS"
 }
