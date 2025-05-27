@@ -2,7 +2,6 @@ package com.syncrhrohealth.bandpass_ble_connection.core.handler
 
 import com.syncrhrohealth.bandpass_ble_connection.core.model.DeviceInfo
 import com.syncrhrohealth.bandpass_ble_connection.core.model.IMUData
-import com.syncrhrohealth.bandpass_ble_connection.core.model.TimeStamp
 
 interface DeviceHandlerCallBack {
     // Connection

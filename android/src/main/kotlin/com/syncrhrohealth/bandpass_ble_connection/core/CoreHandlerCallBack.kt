@@ -8,12 +8,13 @@ import com.syncrhrohealth.bandpass_ble_connection.core.model.IMUData
 import com.syncrhrohealth.bandpass_ble_connection.core.model.TimeStamp
 
 interface CoreHandlerCallBack {
-     // Connection
-     fun onFoundDevice(device: FoundDevice)
-     fun onConnected(handler: DeviceHandler)
-     fun onDisConnected(handler: DeviceHandler)
+    // Connection
+    fun onFoundDevice(device: FoundDevice)
+    fun onConnected(handler: DeviceHandler)
+    fun onDisConnected(handler: DeviceHandler)
 
-     // Data response
-     fun onDeviceInfoRsp(deviceInfo: DeviceInfo, handler: DeviceHandler)
-     fun onImuDataRsp(imuRsp: IMUData, handler: DeviceHandler)
+    // Data response
+    fun onDeviceInfoRsp(deviceInfo: DeviceInfo, handler: DeviceHandler)
+    fun onImuDataRsp(imuRsp: IMUData, handler: DeviceHandler)
+    fun onBatteryLevelRsp(batteryLevel: Int, isCharging: Boolean, handler: DeviceHandler)
 }
