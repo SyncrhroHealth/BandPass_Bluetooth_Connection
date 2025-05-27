@@ -72,26 +72,26 @@ class BleConnection(
             gatt.services.forEach { service ->
                 Log.d(TAG, "discover Service service.uuid: ${service.uuid}")
                 when (service.uuid.toString()) {
-                    BleConstant.SERVICE_UUID -> {
-                        Log.d(TAG, "SERVICE_UUID: ${service.characteristics}")
-                        service.characteristics.forEach { characteristic ->
-                            Log.d(
-                                TAG,
-                                "characteristics: ${characteristic.uuid.toString().lowercase()}"
-                            )
-                            when (characteristic.uuid.toString().lowercase()) {
-                                BleConstant.CENTRAL_TX_CHARACTERISTIC_UUID -> {
-                                    characteristic.writeType =
-                                        BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
-                                    txCharacteristic = characteristic
-                                }
-
-                                BleConstant.CENTRAL_RX_CHARACTERISTIC_UUID -> {
-                                    rxCharacteristic = characteristic
-                                }
-                            }
-                        }
-                    }
+//                    BleConstant.SERVICE_UUID -> {
+//                        Log.d(TAG, "SERVICE_UUID: ${service.characteristics}")
+//                        service.characteristics.forEach { characteristic ->
+//                            Log.d(
+//                                TAG,
+//                                "characteristics: ${characteristic.uuid.toString().lowercase()}"
+//                            )
+//                            when (characteristic.uuid.toString().lowercase()) {
+//                                BleConstant.CENTRAL_TX_CHARACTERISTIC_UUID -> {
+//                                    characteristic.writeType =
+//                                        BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
+//                                    txCharacteristic = characteristic
+//                                }
+//
+//                                BleConstant.CENTRAL_RX_CHARACTERISTIC_UUID -> {
+//                                    rxCharacteristic = characteristic
+//                                }
+//                            }
+//                        }
+//                    }
 
                     BleConstant.BATTERY_SERVICE_UUID -> {
                         Log.d(TAG, "BATTERY_SERVICE_UUID: ${service.characteristics}")
