@@ -25,6 +25,7 @@ class BleConnection(
     private var bluetoothGatt: BluetoothGatt? = null
     private var txCharacteristic: BluetoothGattCharacteristic? = null
     private var rxCharacteristic: BluetoothGattCharacteristic? = null
+    private var batteryCharacteristic: BluetoothGattCharacteristic? = null
 
     private var subscribeNotificationCount = 0
 
@@ -92,6 +93,21 @@ class BleConnection(
                         }
                     }
 
+                    BleConstant.BATTERY_SERVICE_UUID -> {
+                        Log.d(TAG, "BATTERY_SERVICE_UUID: ${service.characteristics}")
+                        service.characteristics.forEach { characteristic ->
+                            Log.d(
+                                TAG,
+                                "Battery characteristics: ${characteristic.uuid.toString().lowercase()}"
+                            )
+                            when (characteristic.uuid.toString().lowercase()) {
+                                BleConstant.BATTERY_LEVEL_CHARACTERISTIC_UUID -> {
+                                    batteryCharacteristic = characteristic
+                                }
+                            }
+                        }
+                    }
+
                     else -> {}
                 }
             }
@@ -120,20 +136,28 @@ class BleConnection(
                     }
                 }
 
-//                2 -> {
-//                    if (txCharacteristic != null) {
-//                        gatt.setCharacteristicNotification(dataCharacteristic, true)
-//                        val uuid = UUID.fromString(BleConstant.CCC_BITS_UUID)
-//                        val descriptor = dataCharacteristic!!.getDescriptor(uuid)
-//                        descriptor.value = BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
-//                        gatt.writeDescriptor(descriptor)
-//                    }
-//                }
+                2 -> {
+                    if (batteryCharacteristic != null) {
+                        gatt.setCharacteristicNotification(batteryCharacteristic, true)
 
-                // If there is more characteristic in the fututure, extend the when and increase the if(subscribeNotificationCount == X)
+                        val uuid = UUID.fromString(BleConstant.CCC_BITS_UUID)
+                        val descriptor = batteryCharacteristic!!.getDescriptor(uuid)
+                        descriptor.value = BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
+
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                            descriptor.value = BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
+                            gatt.writeDescriptor(descriptor)
+                        } else {
+                            gatt.writeDescriptor(
+                                descriptor,
+                                BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
+                            )
+                        }
+                    }
+                }
             }
 
-            if (subscribeNotificationCount == 1) {
+            if (subscribeNotificationCount == 2) {
                 callback.onConnected(gatt.device)
             }
         }
@@ -154,6 +178,10 @@ class BleConnection(
             when (characteristic.uuid.toString().lowercase()) {
                 BleConstant.CENTRAL_RX_CHARACTERISTIC_UUID -> {
                     callback.onDataReceived(gatt.device, characteristic.value)
+                }
+
+                BleConstant.BATTERY_LEVEL_CHARACTERISTIC_UUID -> {
+                    callback.onBatteryLevelReceived(gatt.device, characteristic.value)
                 }
             }
         }

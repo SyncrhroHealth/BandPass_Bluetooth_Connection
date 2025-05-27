@@ -8,4 +8,7 @@ interface BleConnectionCallBack {
 
     // For live data, notified from Central RX characteristic
     fun onDataReceived(connection: BluetoothDevice, byteArray: ByteArray)
+
+    // For live data, notified from Central RX characteristic
+    fun onBatteryLevelReceived(connection: BluetoothDevice, byteArray: ByteArray)
 }

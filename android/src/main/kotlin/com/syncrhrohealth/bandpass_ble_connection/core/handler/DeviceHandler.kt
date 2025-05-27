@@ -2,6 +2,7 @@ package com.syncrhrohealth.bandpass_ble_connection.core.handler
 
 import android.bluetooth.BluetoothDevice
 import android.content.Context
+import android.util.Log
 import com.syncrhrohealth.bandpass_ble_connection.ble.BleConnectionCallBack
 import com.syncrhrohealth.bandpass_ble_connection.ble.BlePeripheral
 import com.syncrhrohealth.bandpass_ble_connection.core.parser.DataParser
@@ -36,6 +37,19 @@ class DeviceHandler(
 
     override fun onDataReceived(connection: BluetoothDevice, byteArray: ByteArray) {
         parser.push(byteArray)
+    }
+
+    override fun onBatteryLevelReceived(connection: BluetoothDevice, byteArray: ByteArray) {
+        // Handle battery level data if needed
+        Log.e(TAG, "onBatteryLevelReceived: array: $byteArray")
+        peripheral.batteryLevel = byteArray[0].toInt() // Assuming first byte is battery level
+        peripheral.isCharging = byteArray[1] == 1.toByte() // Assuming second byte indicates charging status
+        Log.e(TAG, "Battery Level: ${peripheral.batteryLevel}, Is Charging: ${peripheral.isCharging}")
+        callBack.onBatteryLevelRsp(
+            peripheral.batteryLevel,
+            peripheral.isCharging,
+            this
+        )
     }
 
     fun requestToConnect(autoConnect: Boolean = false) {
