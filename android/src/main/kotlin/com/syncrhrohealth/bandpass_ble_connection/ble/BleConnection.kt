@@ -116,27 +116,27 @@ class BleConnection(
         private fun setCharsNotification(gatt: BluetoothGatt) {
             subscribeNotificationCount += 1
             when (subscribeNotificationCount) {
+//                1 -> {
+//                    if (rxCharacteristic != null) {
+//                        gatt.setCharacteristicNotification(rxCharacteristic, true)
+//
+//                        val uuid = UUID.fromString(BleConstant.CCC_BITS_UUID)
+//                        val descriptor = rxCharacteristic!!.getDescriptor(uuid)
+//                        descriptor.value = BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
+//
+//                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+//                            descriptor.value = BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
+//                            gatt.writeDescriptor(descriptor)
+//                        } else {
+//                            gatt.writeDescriptor(
+//                                descriptor,
+//                                BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
+//                            )
+//                        }
+//                    }
+//                }
+
                 1 -> {
-                    if (rxCharacteristic != null) {
-                        gatt.setCharacteristicNotification(rxCharacteristic, true)
-
-                        val uuid = UUID.fromString(BleConstant.CCC_BITS_UUID)
-                        val descriptor = rxCharacteristic!!.getDescriptor(uuid)
-                        descriptor.value = BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
-
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                            descriptor.value = BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
-                            gatt.writeDescriptor(descriptor)
-                        } else {
-                            gatt.writeDescriptor(
-                                descriptor,
-                                BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
-                            )
-                        }
-                    }
-                }
-
-                2 -> {
                     if (batteryCharacteristic != null) {
                         gatt.setCharacteristicNotification(batteryCharacteristic, true)
 
@@ -157,7 +157,7 @@ class BleConnection(
                 }
             }
 
-            if (subscribeNotificationCount == 2) {
+            if (subscribeNotificationCount == 1) {
                 callback.onConnected(gatt.device)
             }
         }
