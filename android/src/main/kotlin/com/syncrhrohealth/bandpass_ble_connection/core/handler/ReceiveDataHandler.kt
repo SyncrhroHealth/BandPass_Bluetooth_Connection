@@ -9,7 +9,7 @@ val TAG: String = ReceiveDataHandler::class.java.simpleName
 object ReceiveDataHandler {
 
     fun handle(packet: Packet, handler: DeviceHandler) {
-        Log.d(TAG, "handle: ${packet.header.type}")
+//        Log.d(TAG, "handle: ${packet.header.type}")
 
         val typeInt = packet.header.type.toInt() and 0xFF
         when (typeInt) {
