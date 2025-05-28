@@ -196,6 +196,10 @@ class BleConnection(
                 BleConstant.CENTRAL_RX_CHARACTERISTIC_UUID -> {
                     callback.onDataReceived(gatt.device, value)
                 }
+
+                BleConstant.BATTERY_LEVEL_CHARACTERISTIC_UUID -> {
+                    callback.onBatteryLevelReceived(gatt.device, value)
+                }
             }
         }
 
