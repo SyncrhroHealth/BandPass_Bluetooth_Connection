@@ -202,8 +202,8 @@ class CoreHandler private constructor(private val context: Context) : DeviceHand
         coreHandlerCallBack?.onImuDataRsp(imuRsp, handler)
     }
 
-    override fun onBatteryLevelRsp(batteryLevel: Int, isCharging: Boolean, handler: DeviceHandler) {
-        coreHandlerCallBack?.onBatteryLevelRsp(batteryLevel, isCharging, handler)
+    override fun onBatteryLevelRsp(batteryLevel: Int, handler: DeviceHandler) {
+        coreHandlerCallBack?.onBatteryLevelRsp(batteryLevel, handler)
     }
 
     /**********************************************************************************************

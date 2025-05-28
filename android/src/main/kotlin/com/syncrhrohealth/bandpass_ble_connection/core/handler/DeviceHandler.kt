@@ -42,12 +42,10 @@ class DeviceHandler(
     override fun onBatteryLevelReceived(connection: BluetoothDevice, byteArray: ByteArray) {
         // Handle battery level data if needed
         Log.e(TAG, "onBatteryLevelReceived: array: $byteArray")
-        peripheral.batteryLevel = byteArray[0].toInt() // Assuming first byte is battery level
-        peripheral.isCharging = byteArray[1] == 1.toByte() // Assuming second byte indicates charging status
-        Log.e(TAG, "Battery Level: ${peripheral.batteryLevel}, Is Charging: ${peripheral.isCharging}")
+        peripheral.batteryLevel = byteArray[0].toInt()
+        Log.e(TAG, "Battery Level: ${peripheral.batteryLevel}")
         callBack.onBatteryLevelRsp(
             peripheral.batteryLevel,
-            peripheral.isCharging,
             this
         )
     }

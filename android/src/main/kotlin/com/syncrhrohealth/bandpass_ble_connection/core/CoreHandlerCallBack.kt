@@ -16,5 +16,5 @@ interface CoreHandlerCallBack {
     // Data response
     fun onDeviceInfoRsp(deviceInfo: DeviceInfo, handler: DeviceHandler)
     fun onImuDataRsp(imuRsp: IMUData, handler: DeviceHandler)
-    fun onBatteryLevelRsp(batteryLevel: Int, isCharging: Boolean, handler: DeviceHandler)
+    fun onBatteryLevelRsp(batteryLevel: Int, handler: DeviceHandler)
 }

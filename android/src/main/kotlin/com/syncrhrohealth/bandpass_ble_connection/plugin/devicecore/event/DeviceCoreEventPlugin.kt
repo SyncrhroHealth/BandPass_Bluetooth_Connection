@@ -105,11 +105,10 @@ class DeviceCoreEventPlugin : FlutterPlugin,
         eventHandler.send(DeviceCoreEventTask(DeviceCoreEvent.ON_IMU_DATA_RSP.value, map))
     }
 
-    override fun onBatteryLevelRsp(batteryLevel: Int, isCharging: Boolean, handler: DeviceHandler) {
+    override fun onBatteryLevelRsp(batteryLevel: Int, handler: DeviceHandler) {
         val map = mapOf(
             "address" to handler.getDevice().getAddress(),
             "batteryLevel" to batteryLevel,
-            "isCharging" to isCharging
         )
 
 //        eventHandler.send(DeviceCoreEventTask(DeviceCoreEvent.ON_BATTERY_LEVEL_RSP.value, map))
