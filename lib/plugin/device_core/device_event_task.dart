@@ -1,3 +1,4 @@
+import 'package:bandpass_ble_connection/plugin/device_core/models/battery_info.dart';
 import 'package:bandpass_ble_connection/plugin/device_core/models/disconnected_device.dart';
 import 'package:bandpass_ble_connection/plugin/device_core/models/imu_data.dart';
 
@@ -31,5 +32,9 @@ class DeviceEventTask {
 
   ImuData toImuData() {
     return ImuData.fromMap(data);
+  }
+
+  BatteryInfo toBatteryInfo() {
+    return BatteryInfo.fromMap(data);
   }
 }

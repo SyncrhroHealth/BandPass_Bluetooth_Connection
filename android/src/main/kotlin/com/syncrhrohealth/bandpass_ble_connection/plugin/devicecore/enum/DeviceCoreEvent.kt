@@ -10,4 +10,5 @@ enum class DeviceCoreEvent(val value: String) {
     // Data response
     ON_DEVICE_INFO_RSP("onDeviceInfoRsp"),
     ON_IMU_DATA_RSP("onImuDataRsp"),
+    ON_BATTERY_LEVEL_RSP("onBatteryLevelRsp"),
 }

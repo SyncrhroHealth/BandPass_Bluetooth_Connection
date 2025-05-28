@@ -1,3 +1,4 @@
+import 'package:bandpass_ble_connection/plugin/device_core/models/battery_info.dart';
 import 'package:bandpass_ble_connection/plugin/device_core/models/connected_device.dart';
 import 'package:bandpass_ble_connection/plugin/device_core/models/disconnected_device.dart';
 import 'package:bandpass_ble_connection/plugin/device_core/models/imu_data.dart';
@@ -95,6 +96,20 @@ class BandpassBleConnection {
         switch (event.event) {
           case EventEnum.onImuDataRsp:
             onReceiveImuData(event.toImuData());
+            break;
+          default:
+            break;
+        }
+      },
+    );
+  }
+
+  static void listenBatteryInfo(Function(BatteryInfo) onReceiveBatteryInfo) {
+    DeviceCorePlugin.listenEvent().listen(
+      (event) {
+        switch (event.event) {
+          case EventEnum.onBatteryLevelRsp:
+            onReceiveBatteryInfo(event.toBatteryInfo());
             break;
           default:
             break;
