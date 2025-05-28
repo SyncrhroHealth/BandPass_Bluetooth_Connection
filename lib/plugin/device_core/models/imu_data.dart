@@ -9,7 +9,8 @@ class ImuData {
   final double gyroY;
   final double gyroZ;
   final int adcRaw;
-  final int timestampMs;
+  final String date;
+  final String timeMs;
 
   ImuData({
     required this.count,
@@ -20,11 +21,10 @@ class ImuData {
     required this.gyroY,
     required this.gyroZ,
     required this.adcRaw,
-    required this.timestampMs,
+    required this.date,
+    required this.timeMs,
   });
 
-  /// Accepts a dynamic map (e.g. Map<Object?,Object?>) and
-  /// casts it into a Map<String,dynamic> for safe lookup.
   factory ImuData.fromMap(dynamic raw) {
     final map = Map<String, dynamic>.from(raw as Map);
     return ImuData(
@@ -36,17 +36,13 @@ class ImuData {
       gyroY: (map['gyroY'] as num).toDouble(),
       gyroZ: (map['gyroZ'] as num).toDouble(),
       adcRaw: map['adcRaw'] as int,
-      timestampMs: map['timestampMs'] as int,
+      date: map['date'] as String,
+      timeMs: map['timeMs'] as String,
     );
   }
 
   @override
   String toString() {
-    return 'ImuData('
-        'count: $count, '
-        'accelX: $accelX, accelY: $accelY, accelZ: $accelZ, '
-        'gyroX: $gyroX, gyroY: $gyroY, gyroZ: $gyroZ, '
-        'adcRaw: $adcRaw, timestampMs: $timestampMs'
-        ')';
+    return 'ImuData(count: $count, accelX: $accelX, accelY: $accelY, accelZ: $accelZ, gyroX: $gyroX, gyroY: $gyroY, gyroZ: $gyroZ, adcRaw: $adcRaw, date: $date, timeMs: $timeMs)';
   }
 }

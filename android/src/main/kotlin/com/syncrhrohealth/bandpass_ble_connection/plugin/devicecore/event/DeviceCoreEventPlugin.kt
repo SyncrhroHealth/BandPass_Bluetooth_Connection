@@ -1,7 +1,6 @@
 package com.syncrhrohealth.bandpass_ble_connection.plugin.devicecore.event
 
 import android.annotation.SuppressLint
-import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.util.Log
 import com.syncrhrohealth.bandpass_ble_connection.ble.FoundDevice
@@ -10,7 +9,6 @@ import com.syncrhrohealth.bandpass_ble_connection.core.CoreHandlerCallBack
 import com.syncrhrohealth.bandpass_ble_connection.core.handler.DeviceHandler
 import com.syncrhrohealth.bandpass_ble_connection.core.model.DeviceInfo
 import com.syncrhrohealth.bandpass_ble_connection.core.model.IMUData
-import com.syncrhrohealth.bandpass_ble_connection.core.model.TimeStamp
 import com.syncrhrohealth.bandpass_ble_connection.plugin.ChannelNames
 import com.syncrhrohealth.bandpass_ble_connection.plugin.devicecore.enum.DeviceCoreEvent
 import com.syncrhrohealth.bandpass_ble_connection.plugin.devicecore.method.DeviceCoreMethodHelper
@@ -91,14 +89,15 @@ class DeviceCoreEventPlugin : FlutterPlugin,
     override fun onImuDataRsp(imuRsp: IMUData, handler: DeviceHandler) {
         val map = mapOf(
             "address" to handler.getDevice().getAddress(),
-            "timestampMs" to imuRsp.timestampMs,
+            "date" to imuRsp.date,
+            "timeMs" to imuRsp.timeMs,
             "count" to imuRsp.count,
             "accelX" to imuRsp.accelX,
             "accelY" to imuRsp.accelY,
             "accelZ" to imuRsp.accelZ,
-            "gyroX" to imuRsp.gyrosX,
-            "gyroY" to imuRsp.gyrosY,
-            "gyroZ" to imuRsp.gyrosZ,
+            "gyroX" to imuRsp.gyroX,
+            "gyroY" to imuRsp.gyroY,
+            "gyroZ" to imuRsp.gyroZ,
             "adcRaw" to imuRsp.adcRaw
         )
 

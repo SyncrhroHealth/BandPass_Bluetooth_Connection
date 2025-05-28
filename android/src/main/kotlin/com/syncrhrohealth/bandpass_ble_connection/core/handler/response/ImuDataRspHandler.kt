@@ -5,6 +5,10 @@ import com.syncrhrohealth.bandpass_ble_connection.core.handler.DeviceHandler
 import com.syncrhrohealth.bandpass_ble_connection.core.model.IMUData
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 /**
  * IMU Data Response Handler
@@ -28,6 +32,20 @@ import java.nio.ByteOrder
  * Byte 59–60  : RTC milliseconds (big-endian uint16)
  * Byte 61     : Optional terminator tag – discard if present
  */
+
+
+private val UTC_TZ = TimeZone.getTimeZone("UTC")
+private val DATE_FMT = SimpleDateFormat("yyyy-MM-dd", Locale.US).apply {
+    timeZone = UTC_TZ
+}
+private val TIME_FMT = SimpleDateFormat("HH:mm:ss.SSS", Locale.US).apply {
+    timeZone = UTC_TZ
+}
+
+/** Device’s “RTC base” (seconds from 1970-01-01 to 2000-01-01) */
+private const val RTC_BASE_OFFSET = 946_684_800L
+
+
 object ImuDataRspHandler {
     private const val TAG = "ImuDataRspHandler"
 
@@ -43,6 +61,7 @@ object ImuDataRspHandler {
 
             // wrap for little-endian multi-byte reads
             val bb = ByteBuffer.wrap(data).order(ByteOrder.LITTLE_ENDIAN)
+
             // Parse sensor value: 32-bit integer part + 32-bit fractional part (1e6 scale)
             fun parseSensor(offset: Int): Float {
                 val intPart = bb.getInt(offset)
@@ -56,34 +75,48 @@ object ImuDataRspHandler {
             val accelZ = parseSensor(19)
 
             // Gyroscope (first sample)
-            val gyroX  = parseSensor(27)
-            val gyroY  = parseSensor(35)
-            val gyroZ  = parseSensor(43)
+            val gyroX = parseSensor(27)
+            val gyroY = parseSensor(35)
+            val gyroZ = parseSensor(43)
 
             // ADC: tag + big-endian uint16
             require(data[51] == 0x02.toByte()) { "Invalid ADC tag: ${data[51]}" }
             val adcRaw = ((data[52].toInt() and 0xFF) shl 8) or
                     (data[53].toInt() and 0xFF)
 
-            // RTC: tag, seconds (uint32 BE), milliseconds (uint16 BE)
-            require(data[54] == 0x04.toByte()) { "Invalid RTC tag: ${data[54]}" }
-            val secs = ((data[55].toInt() and 0xFF) shl 24) or
-                    ((data[56].toInt() and 0xFF) shl 16) or
-                    ((data[57].toInt() and 0xFF) shl 8) or
-                    (data[58].toInt() and 0xFF)
-            val ms   = ((data[59].toInt() and 0xFF) shl 8) or
-                    (data[60].toInt() and 0xFF)
-            val timestampMs = secs * 1000L + ms
+            // ─── RTC: tag, seconds (uint32 BE), milliseconds (uint16 BE) ────────────
+            var dateStr: String = ""
+            var timeStr: String = ""
 
-            // Build and dispatch IMUData model
+            if (data[54] == 0x04.toByte() && data.size >= 61) {
+                //   seconds 55-58 (big-endian)
+                val secs = ((data[55].toLong() and 0xFF) shl 24) or
+                        ((data[56].toLong() and 0xFF) shl 16) or
+                        ((data[57].toLong() and 0xFF) shl 8) or
+                        (data[58].toLong() and 0xFF)
+
+                //   ms 59-60 (big-endian)
+                val ms = ((data[59].toInt() and 0xFF) shl 8) or
+                        (data[60].toInt() and 0xFF)
+
+                //   Align device epoch (2000-01-01) with Unix epoch (1970-01-01)
+                val epochMillis = (secs + (RTC_BASE_OFFSET - 946_684_800L)) * 1_000L + ms
+
+                val date = Date(epochMillis)
+                dateStr = DATE_FMT.format(date)            // yyyy-MM-dd (UTC)
+                timeStr = TIME_FMT.format(date)            // HH:mm:ss.SSS (UTC)
+            }
+
             val imuData = IMUData(
                 count,
                 accelX, accelY, accelZ,
                 gyroX, gyroY, gyroZ,
                 adcRaw,
-                timestampMs
+                dateStr,
+                timeStr
             )
-//            Log.d(TAG, "imuData: $imuData")
+
+            Log.d(TAG, "imuData: $imuData")
 
             handler.callBack.onImuDataRsp(imuData, handler)
         } catch (e: Exception) {
