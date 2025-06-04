@@ -203,6 +203,34 @@ class BleConnection(
             }
         }
 
+        // API ≤ 32
+        override fun onCharacteristicRead(
+            gatt: BluetoothGatt,
+            characteristic: BluetoothGattCharacteristic,
+            status: Int
+        ) {
+            if (status == BluetoothGatt.GATT_SUCCESS &&
+                characteristic.uuid.toString().lowercase() == BleConstant.BATTERY_LEVEL_CHARACTERISTIC_UUID
+            ) {
+                callback.onBatteryLevelReceived(gatt.device, characteristic.value)
+            }
+        }
+
+        // API 33+
+        override fun onCharacteristicRead(
+            gatt: BluetoothGatt,
+            characteristic: BluetoothGattCharacteristic,
+            value: ByteArray,
+            status: Int
+        ) {
+            if (status == BluetoothGatt.GATT_SUCCESS &&
+                characteristic.uuid.toString().lowercase() == BleConstant.BATTERY_LEVEL_CHARACTERISTIC_UUID
+            ) {
+                callback.onBatteryLevelReceived(gatt.device, value)
+            }
+        }
+
+
         override fun onDescriptorWrite(
             gatt: BluetoothGatt?,
             descriptor: BluetoothGattDescriptor?,
@@ -215,6 +243,25 @@ class BleConnection(
             }
         }
     }
+
+    /** Reads Battery Level once (0–100 %). */
+    fun readBatteryLevel(): Boolean {
+        val char = batteryCharacteristic
+        return if (bluetoothGatt != null && char != null) {
+            // Ensure the characteristic has the READ property
+            if (char.properties and BluetoothGattCharacteristic.PROPERTY_READ != 0) {
+                bluetoothGatt!!.readCharacteristic(char)     // API 21-34
+                true
+            } else {
+                Log.w(TAG, "Battery Level characteristic is not readable")
+                false
+            }
+        } else {
+            Log.w(TAG, "Battery characteristic not discovered yet")
+            false
+        }
+    }
+
 
     private fun closeGattConnection() {
         bluetoothGatt?.let { gatt ->

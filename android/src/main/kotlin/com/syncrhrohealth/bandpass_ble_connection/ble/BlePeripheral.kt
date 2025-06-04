@@ -44,6 +44,10 @@ class BlePeripheral(
         return device.address
     }
 
+    fun readBatteryLevel() {
+        connection.readBatteryLevel()
+    }
+
     /**
      * bluetooth off may cause device name is null, cause NullPointerException
      */

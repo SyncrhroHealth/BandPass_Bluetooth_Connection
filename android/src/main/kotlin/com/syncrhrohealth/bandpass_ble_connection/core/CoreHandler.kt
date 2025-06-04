@@ -152,6 +152,7 @@ class CoreHandler private constructor(private val context: Context) : DeviceHand
 
     private fun getInitFirstConnected(device: DeviceHandler) {
         Log.e(tag, "getInitFirstConnected:")
+        device.getDevice().readBatteryLevel()
 //        GetDeviceInfoHandler.send(device)
 //        GetCurrentTempCmd.get(device)
     }
