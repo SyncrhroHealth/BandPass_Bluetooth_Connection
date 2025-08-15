@@ -27,6 +27,7 @@ class BleScanner(
             if (result.device.name == null) return
             Log.d(TAG, "scan result")
             if (result.device.name.startsWith(BleConstant.DEVICE_PREFIX)) {
+                Log.d(TAG, "GOT BANDPASS")
                 onDevicesFound(
                     FoundDevice(
                         btDevice = result.device,
