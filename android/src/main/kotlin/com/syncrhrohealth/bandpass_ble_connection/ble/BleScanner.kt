@@ -25,7 +25,7 @@ class BleScanner(
         override fun onScanResult(callBackType: Int, result: ScanResult) {
             super.onScanResult(callBackType, result)
             if (result.device.name == null) return
-
+            Log.d(TAG, "scan result")
             if (result.device.name.startsWith(BleConstant.DEVICE_PREFIX)) {
                 onDevicesFound(
                     FoundDevice(
@@ -62,6 +62,7 @@ class BleScanner(
     }
 
     fun stopScan() {
+        Log.d(TAG, "stopScan...")
         scanner.stopScan(mScanCallback)
     }
 }
