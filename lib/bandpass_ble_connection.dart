@@ -9,6 +9,7 @@ import 'plugin/device_core/device_core_plugin.dart';
 import 'plugin/device_core/device_event_task.dart';
 import 'plugin/device_core/enum/event_enum.dart';
 import 'plugin/device_core/models/found_device.dart';
+import 'dart:developer' as dev;
 
 class BandpassBleConnection {
   Future<String?> getPlatformVersion() {
@@ -25,6 +26,7 @@ class BandpassBleConnection {
   }
 
   static startScan() async {
+    dev.log('[startScan] CALLED\n${StackTrace.current}');
     await DeviceCorePlugin.startScan();
   }
 
