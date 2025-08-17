@@ -73,15 +73,12 @@ class DeviceCorePlugin {
   }
 
   static Future<bool> startScan() async {
-    try {
-      final st = StackTrace.current.toString();
-      print('[DART] startScan called\n$st');
-      final result = await _methodChannel.invokeMethod(MethodEnum.startScan.value, {'origin': st},
-      );
-      return Future.value(result);
-    } catch (error) {
-      return Future.value(false);
-    }
+    final origin = StackTrace.current.toString();
+    // (keep your print if you want)
+    return await _methodChannel.invokeMethod(
+      MethodEnum.startScan.value,
+      {'origin': origin}, // <= add this
+    ) as bool;
   }
 
   static Future<bool> stopScan() async {
@@ -130,7 +127,6 @@ class DeviceCorePlugin {
     }
   }
 
-
   static Future<bool> getDeviceInfo({
     required String address,
   }) async {
@@ -144,5 +140,4 @@ class DeviceCorePlugin {
       return Future.value(false);
     }
   }
-
 }

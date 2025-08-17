@@ -26,7 +26,7 @@ class DeviceCoreMethodPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
         val args = call.arguments<ArrayList<*>>()
         Log.w("DeviceCore", "onMethodCall: ${call.method}")
         call.argument<String>("origin")?.let {
-            Log.w("DeviceCore", "DART origin:\n$it")
+        Log.w("DeviceCore", "DART origin:\n$it")
         }
 
         when (call.method) {
