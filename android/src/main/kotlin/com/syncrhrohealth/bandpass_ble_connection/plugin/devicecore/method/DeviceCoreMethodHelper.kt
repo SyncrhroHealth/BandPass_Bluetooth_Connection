@@ -26,16 +26,22 @@ class DeviceCoreMethodHelper private constructor(private val context: Context) {
     }
 
 
-    fun startScan(args: ArrayList<*>?, result: MethodChannel.Result) {
-        // Safely read the first element (works for java.util.ArrayList too)
-        val origin = (args?.firstOrNull() as? String) ?: "<no-origin>"
+    fun startScan(args: Any?, result: MethodChannel.Result) {
+        // Normalize to String if present (supports List, Map, or plain String)
+        val origin: String? = when (args) {
+            is java.util.ArrayList<*> -> args.firstOrNull() as? String
+            is List<*>                -> args.firstOrNull() as? String
+            is Map<*, *>              -> args["origin"] as? String
+            is String                 -> args
+            else                      -> null
+        }
+        android.util.Log.w("DeviceCore", "startScan origin:\n${origin ?: "<no-origin>"}")
 
-        Log.w("DeviceCore", "startScan origin:\n$origin")
         try {
             CoreHandler.getInstance(context).startScan()
             result.success(true)
         } catch (t: Throwable) {
-            t.printStackTrace()
+            android.util.Log.e("DeviceCore", "startScan failed", t)
             result.success(false)
         }
     }
