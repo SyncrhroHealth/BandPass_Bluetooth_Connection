@@ -1,6 +1,7 @@
 package com.syncrhrohealth.bandpass_ble_connection.plugin.devicecore.method
 
 import android.content.Context
+import android.util.Log
 import com.syncrhrohealth.bandpass_ble_connection.plugin.ChannelNames
 import com.syncrhrohealth.bandpass_ble_connection.plugin.devicecore.enum.DeviceCoreMethod
 import io.flutter.embedding.engine.plugins.FlutterPlugin
