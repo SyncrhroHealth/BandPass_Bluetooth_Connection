@@ -23,6 +23,10 @@ class DeviceCoreMethodPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         val args = call.arguments<ArrayList<*>>()
+        Log.w("DeviceCore", "onMethodCall: ${call.method}")
+        call.argument<String>("origin")?.let {
+            Log.w("DeviceCore", "DART origin:\n$it")
+        }
 
         when (call.method) {
             DeviceCoreMethod.IS_BLE_ENABLED.value -> {
