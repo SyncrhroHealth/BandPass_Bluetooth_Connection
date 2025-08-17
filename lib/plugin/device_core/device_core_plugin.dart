@@ -76,7 +76,8 @@ class DeviceCorePlugin {
     try {
       final st = StackTrace.current.toString();
       print('[DART] startScan called\n$st');
-      final result = await _methodChannel.invokeMethod(MethodEnum.startScan.value);
+      final result = await _methodChannel.invokeMethod(MethodEnum.startScan.value, {'origin': st},
+      );
       return Future.value(result);
     } catch (error) {
       return Future.value(false);
