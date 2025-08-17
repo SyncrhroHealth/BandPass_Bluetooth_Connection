@@ -27,13 +27,15 @@ class DeviceCoreMethodHelper private constructor(private val context: Context) {
 
 
     fun startScan(args: ArrayList<*>?, result: MethodChannel.Result) {
+        // Safely read the first element (works for java.util.ArrayList too)
+        val origin = (args?.firstOrNull() as? String) ?: "<no-origin>"
+
+        Log.w("DeviceCore", "startScan origin:\n$origin")
         try {
-            val origin = args[0] as String
-            Log.w("DeviceCore", "startScan origin: $origin")
             CoreHandler.getInstance(context).startScan()
             result.success(true)
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (t: Throwable) {
+            t.printStackTrace()
             result.success(false)
         }
     }
