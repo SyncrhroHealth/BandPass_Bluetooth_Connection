@@ -26,16 +26,12 @@ class DeviceCoreMethodPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
         val args = call.arguments<ArrayList<*>>()
         Log.w("DeviceCore", "onMethodCall: ${call.method}")
 
-        
-
         when (call.method) {
             DeviceCoreMethod.IS_BLE_ENABLED.value -> {
                 DeviceCoreMethodHelper.getInstance(mContext).isBleEnabled(args, result)
             }
 
             DeviceCoreMethod.START_SCAN.value -> {
-                val ori = args[0]
-                Log.w("DeviceCore", "DART origin:\n$ori")
                 DeviceCoreMethodHelper.getInstance(mContext).startScan(args, result)
             }
 

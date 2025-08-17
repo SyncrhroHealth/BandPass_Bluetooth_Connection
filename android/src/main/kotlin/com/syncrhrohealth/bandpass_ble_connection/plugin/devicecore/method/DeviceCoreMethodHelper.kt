@@ -1,6 +1,7 @@
 package com.syncrhrohealth.bandpass_ble_connection.plugin.devicecore.method
 
 import android.content.Context
+import android.util.Log
 import com.syncrhrohealth.bandpass_ble_connection.ble.BleStateController
 import com.syncrhrohealth.bandpass_ble_connection.core.CoreHandler
 import com.syncrhrohealth.bandpass_ble_connection.core.command.DeviceInfoGetCmd
@@ -27,6 +28,8 @@ class DeviceCoreMethodHelper private constructor(private val context: Context) {
 
     fun startScan(args: ArrayList<*>?, result: MethodChannel.Result) {
         try {
+            val origin = args[0] as String
+            Log.w("DeviceCore", "startScan origin: $origin")
             CoreHandler.getInstance(context).startScan()
             result.success(true)
         } catch (e: Exception) {
