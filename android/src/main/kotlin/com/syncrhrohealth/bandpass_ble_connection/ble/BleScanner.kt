@@ -47,7 +47,7 @@ class BleScanner(
 
     fun startScan() {
         stopScan()
-
+        Log.w(TAG, "startScan() from:\n" + Log.getStackTraceString(Throwable()))
         val settings = ScanSettings.Builder()
             .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
             .build()
