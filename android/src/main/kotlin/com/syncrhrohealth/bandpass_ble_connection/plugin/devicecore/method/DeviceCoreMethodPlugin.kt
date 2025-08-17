@@ -26,9 +26,11 @@ class DeviceCoreMethodPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
         val args = call.arguments<ArrayList<*>>()
             android.util.Log.w("DeviceCore", "onMethodCall: ${call.method}")
 
-        // Log arg type & value (helps catch empty/null)
-        val argType = call.arguments?.let { it::class.java.name } ?: "null"
-        Log.w("DeviceCore", "args type=$argType value=$call.arguments")
+        android.util.Log.w("DeviceCore", "onMethodCall: ${call.method}")
+
+        val argsObj = call.arguments
+        val argType = argsObj?.let { it::class.java.name } ?: "null"
+        android.util.Log.w("DeviceCore", "args type=$argType value=${argsObj}")  // <-- fixed
 
         when (call.method) {
             DeviceCoreMethod.IS_BLE_ENABLED.value -> {
