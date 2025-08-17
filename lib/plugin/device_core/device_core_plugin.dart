@@ -77,7 +77,7 @@ class DeviceCorePlugin {
     // (keep your print if you want)
     return await _methodChannel.invokeMethod(
       MethodEnum.startScan.value,
-      {'origin': origin}, // <= add this
+      [origin], // <= add this
     ) as bool;
   }
 
