@@ -76,7 +76,10 @@ class DeviceCorePlugin {
     try {
       final st = StackTrace.current.toString();
       print('[DART] startScan called\n$st');
-      final result = await _methodChannel.invokeMethod(MethodEnum.startScan.value, [st]);
+      final result = await _methodChannel.invokeMethod(
+        MethodEnum.startScan.value,
+        {'origin': StackTrace.current.toString()},
+      );
       return Future.value(result);
     } catch (error) {
       return Future.value(false);
@@ -129,7 +132,6 @@ class DeviceCorePlugin {
     }
   }
 
-
   static Future<bool> getDeviceInfo({
     required String address,
   }) async {
@@ -143,5 +145,4 @@ class DeviceCorePlugin {
       return Future.value(false);
     }
   }
-
 }

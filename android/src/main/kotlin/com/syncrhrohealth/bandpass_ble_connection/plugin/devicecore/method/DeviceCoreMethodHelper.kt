@@ -26,35 +26,36 @@ class DeviceCoreMethodHelper private constructor(private val context: Context) {
     }
 
 
-fun startScan(args: Any?, result: MethodChannel.Result) {
-    val origin: String? = when (args) {
-        is java.util.ArrayList<*> -> args.firstOrNull() as? String
-        is List<*>                -> args.firstOrNull() as? String
-        is Map<*, *>              -> args["origin"] as? String
-        is String                 -> args
-        null                      -> null
-        else                      -> args.toString() // fallback (rare)
-    }
-    android.util.Log.w("DeviceCore", "startScan origin:\n${origin ?: "<no-origin>"}")
+    fun startScan(args: Any?, result: MethodChannel.Result) {
+        val origin: String? = when (args) {
+            is java.util.ArrayList<*> -> args.firstOrNull() as? String
+            is List<*>                -> args.firstOrNull() as? String
+            is Map<*, *>              -> args["origin"] as? String
+            is String                 -> args
+            null                      -> null
+            else                      -> args.toString()
+        }
 
-    // TEMPORARY: if no origin, throw so Dart prints a stack trace at the bad call site.
-    if (origin == null) {
-        result.error(
-            "MISSING_ORIGIN",
-            "startScan must be invoked with an 'origin' (Dart StackTrace).",
-            null
-        )
-        return
+        android.util.Log.w("DeviceCore", "startScan origin:\n${origin ?: "<no-origin>"}")
+
+        if (origin == null) {                 // <-- DO NOT proceed
+            result.error(
+                "MISSING_ORIGIN",
+                "startScan must be invoked with an 'origin' (Dart StackTrace).",
+                null
+            )
+            return
+        }
+
+        try {
+            CoreHandler.getInstance(context).startScan()
+            result.success(true)
+        } catch (t: Throwable) {
+            android.util.Log.e("DeviceCore", "startScan failed", t)
+            result.success(false)
+        }
     }
 
-    try {
-        CoreHandler.getInstance(context).startScan()
-        result.success(true)
-    } catch (t: Throwable) {
-        android.util.Log.e("DeviceCore", "startScan failed", t)
-        result.success(false)
-    }
-}
 
 
     fun stopScan(args: ArrayList<*>?, result: MethodChannel.Result) {

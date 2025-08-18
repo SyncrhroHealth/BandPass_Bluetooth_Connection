@@ -24,13 +24,10 @@ class DeviceCoreMethodPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         val args = call.arguments<ArrayList<*>>()
-            android.util.Log.w("DeviceCore", "onMethodCall: ${call.method}")
-
         android.util.Log.w("DeviceCore", "onMethodCall: ${call.method}")
-
         val argsObj = call.arguments
         val argType = argsObj?.let { it::class.java.name } ?: "null"
-        android.util.Log.w("DeviceCore", "args type=$argType value=${argsObj}")  // <-- fixed
+        android.util.Log.w("DeviceCore", "args type=$argType value=${argsObj}")
 
         when (call.method) {
             DeviceCoreMethod.IS_BLE_ENABLED.value -> {
