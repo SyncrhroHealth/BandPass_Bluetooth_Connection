@@ -24,6 +24,7 @@ class BleScanner(
     private val mScanCallback = object : ScanCallback() {
         override fun onScanResult(callBackType: Int, result: ScanResult) {
             super.onScanResult(callBackType, result)
+            Log.d(TAG, "scan result")
             if (result.device.name == null) return
 
             if (result.device.name.startsWith(BleConstant.DEVICE_PREFIX)) {
