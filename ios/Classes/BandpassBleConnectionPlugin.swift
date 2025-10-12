@@ -1,19 +1,12 @@
 import Flutter
 import UIKit
 
+@objc(BandpassBleConnectionPlugin)
 public class BandpassBleConnectionPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "bandpass_ble_connection", binaryMessenger: registrar.messenger())
-    let instance = BandpassBleConnectionPlugin()
-    registrar.addMethodCallDelegate(instance, channel: channel)
-  }
+    let messenger = registrar.messenger()
 
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    switch call.method {
-    case "getPlatformVersion":
-      result("iOS " + UIDevice.current.systemVersion)
-    default:
-      result(FlutterMethodNotImplemented)
-    }
+    DeviceCoreMethodPlugin.register(with: messenger)  // MethodChannel  :contentReference[oaicite:2]{index=2}
+    BleStatePlugin.register(with: messenger)          // Event+Method channels  :contentReference[oaicite:3]{index=3}
   }
 }
