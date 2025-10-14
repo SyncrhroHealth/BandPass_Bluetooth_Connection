@@ -58,7 +58,7 @@ class BleConnection(
             Log.d(TAG, "onServicesDiscovered: ${status}")
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 discoverService(gatt)
-                setCharsNotification(gatt)
+//                setCharsNotification(gatt)
                 gatt.requestMtu(BleConstant.REQUEST_MTU_SIZE)
             } else {
                 closeGattConnection()
@@ -163,8 +163,15 @@ class BleConnection(
         }
 
         override fun onMtuChanged(gatt: BluetoothGatt?, mtu: Int, status: Int) {
-            super.onMtuChanged(gatt, mtu, status)
-            Log.d(TAG, "onMtuChanged")
+//            super.onMtuChanged(gatt, mtu, status)
+            Log.d(TAG, "onMtuChanged status=$status mtu=$mtu")
+            if (status == BluetoothGatt.GATT_SUCCESS && gatt != null) {
+                // 2) Now enable notifications (CCCD writes)
+                setCharsNotification(gatt)
+            } else {
+                // Fallback: still enable notifications, but you’ll have payload=20
+                if (gatt != null) setCharsNotification(gatt)
+            }
         }
 
         //-----------------------------------------------------------------------------------------
