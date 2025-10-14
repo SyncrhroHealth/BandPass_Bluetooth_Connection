@@ -97,7 +97,6 @@ class BandpassBleConnection {
       (event) {
         switch (event.event) {
           case EventEnum.onImuDataRsp:
-            print('imu event: ${event.toImuData()}');
             onReceiveImuData(event.toImuData());
             break;
           default:
