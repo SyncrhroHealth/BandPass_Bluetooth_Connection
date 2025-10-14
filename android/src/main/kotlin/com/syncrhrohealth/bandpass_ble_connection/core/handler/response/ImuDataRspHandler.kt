@@ -50,7 +50,7 @@ object ImuDataRspHandler {
     private const val TAG = "ImuDataRspHandler"
 
     fun handle(data: ByteArray, handler: DeviceHandler) {
-//        Log.d(TAG, "handle: len=${data.size}, bytes=${data.toList()}")
+        Log.d(TAG, "handle: len=${data.size}, bytes=${data.toList()}")
         try {
             // 0: payload type
             require(data[0] == 0x03.toByte()) { "Invalid payload type: ${data[0]}" }
