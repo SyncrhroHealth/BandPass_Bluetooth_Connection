@@ -116,7 +116,7 @@ object ImuDataRspHandler {
                 timeStr
             )
 
-//            Log.d(TAG, "imuData: $imuData")
+            Log.d(TAG, "imuData: $imuData")
 
             handler.callBack.onImuDataRsp(imuData, handler)
         } catch (e: Exception) {
