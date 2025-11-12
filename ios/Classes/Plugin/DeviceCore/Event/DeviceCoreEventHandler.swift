@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Flutter
 
 class DeviceCoreEventHandler: NSObject, FlutterStreamHandler {
     private var eventSink: FlutterEventSink?

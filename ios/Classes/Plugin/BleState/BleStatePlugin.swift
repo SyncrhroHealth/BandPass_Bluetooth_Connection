@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreBluetooth
+import Flutter
 class BleStatePlugin: NSObject, BleStateListener {
     enum Event: String {
         case SCAN_RESULT = "scanResult"

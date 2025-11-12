@@ -18,4 +18,10 @@ class BleConstant {
     static let CENTRAL_RX_CHARACTERISTIC_UUID = CBUUID(string: "6e400003-b5a3-f393-e0a9-e50e24dcca9e".uppercased())
         
     static let PREFIX_HOT_BOX = "HOT-BOX"
+    
+    // Desired MTU size (matching Android)
+    // Note: iOS doesn't support requesting a specific MTU like Android.
+    // The MTU is negotiated automatically during connection, typically up to 185 bytes.
+    // Some devices may negotiate higher values (up to 251 bytes), but 512 is not typically supported on iOS.
+    static let REQUEST_MTU_SIZE = 512
 }

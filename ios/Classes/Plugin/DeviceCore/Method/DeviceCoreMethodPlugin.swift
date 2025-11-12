@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Darwin
+import Flutter
 
 class DeviceCoreMethodPlugin: NSObject {
     
@@ -47,62 +47,6 @@ class DeviceCoreMethodPlugin: NSObject {
             break
         case DeviceCoreMethod.reconnectDevices.rawValue:
 //            DeviceCoreMethodHelper.shared.isBleEnabled(params: params, result: result)
-            break
-        case DeviceCoreMethod.getDeviceName.rawValue:
-            DeviceCoreMethodHelper.shared.getDeviceName(params: params, result: result)
-            break
-        case DeviceCoreMethod.setDeviceName.rawValue:
-            DeviceCoreMethodHelper.shared.setDeviceName(params: params, result: result)
-            break
-        case DeviceCoreMethod.getDeviceInfo.rawValue:
-            DeviceCoreMethodHelper.shared.getDeviceInfo(params: params, result: result)
-            break
-        case DeviceCoreMethod.setThermostatControlMode.rawValue:
-            DeviceCoreMethodHelper.shared.setThermostatControlMode(params: params, result: result)
-            break
-        case DeviceCoreMethod.setManualControlMode.rawValue:
-            DeviceCoreMethodHelper.shared.setManualControlMode(params: params, result: result)
-            break
-        case DeviceCoreMethod.getBasicInfo.rawValue:
-            DeviceCoreMethodHelper.shared.getBasicInfo(params: params, result: result)
-            break
-        case DeviceCoreMethod.getHotBoxData.rawValue:
-            DeviceCoreMethodHelper.shared.getHotBoxData(params: params, result: result)
-            break
-        case DeviceCoreMethod.setTimeStamp.rawValue:
-            DeviceCoreMethodHelper.shared.setTimeStamp(params: params, result: result)
-            break
-        case DeviceCoreMethod.getTimeStamp.rawValue:
-            DeviceCoreMethodHelper.shared.getTimeStamp(params: params, result: result)
-            break
-        case DeviceCoreMethod.getSchedule.rawValue:
-            DeviceCoreMethodHelper.shared.getSchedule(params: params, result: result)
-            break
-        case DeviceCoreMethod.setSchedule.rawValue:
-            DeviceCoreMethodHelper.shared.setSchedule(params: params, result: result)
-            break
-        case DeviceCoreMethod.resetFuelLevel.rawValue:
-            DeviceCoreMethodHelper.shared.resetFuelLevel(params: params, result: result)
-            break
-        case DeviceCoreMethod.setFuelCapacity.rawValue:
-            DeviceCoreMethodHelper.shared.setFuelCapacity(params: params, result: result)
-            break
-        case DeviceCoreMethod.setFuelPump.rawValue:
-            DeviceCoreMethodHelper.shared.setFuelPump(params: params, result: result)
-            break
-        case DeviceCoreMethod.setSeaLevel.rawValue:
-            DeviceCoreMethodHelper.shared.setSeaLevel(params: params, result: result)
-            break
-        case DeviceCoreMethod.setTempOffset.rawValue:
-            DeviceCoreMethodHelper.shared.setTempOffset(params: params, result: result)
-            break
-            
-        case DeviceCoreMethod.getHeaterTuning.rawValue:
-            DeviceCoreMethodHelper.shared.getHeaterTuning(params: params, result: result)
-            break
-            
-        case DeviceCoreMethod.getHeaterTuning.rawValue:
-            DeviceCoreMethodHelper.shared.setHeaterTuning(params: params, result: result)
             break
             
         default:

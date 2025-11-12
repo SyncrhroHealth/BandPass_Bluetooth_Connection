@@ -22,32 +22,16 @@ class BleCentralManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegat
         bleCentralManagerToCoreCallback?.onDisConnected(handler: handler)
     }
 
-    func onDeviceNameRsp(deviceName: String, handler: DeviceHandler) {
-        bleCentralManagerToCoreCallback?.onDeviceNameRsp(deviceName: deviceName, handler: handler)
-    }
-
     func onDeviceInfoRsp(deviceInfo: DeviceInfo, handler: DeviceHandler) {
         bleCentralManagerToCoreCallback?.onDeviceInfoRsp(deviceInfo: deviceInfo, handler: handler)
     }
 
-    func onBasicInfoRsp(basicInfo: BasicInfo, handler: DeviceHandler) {
-        bleCentralManagerToCoreCallback?.onBasicInfoRsp(basicInfo: basicInfo, handler: handler)
+    func onImuDataRsp(imuData: IMUData, handler: DeviceHandler) {
+        bleCentralManagerToCoreCallback?.onImuDataRsp(imuData: imuData, handler: handler)
     }
 
-    func onHotBoxDataRsp(hotBoxData: HotBoxData, handler: DeviceHandler) {
-        bleCentralManagerToCoreCallback?.onHotBoxDataRsp(hotBoxData: hotBoxData, handler: handler)
-    }
-
-    func onTimeStampRsp(timeStamp: TimeStamp, handler: DeviceHandler) {
-        bleCentralManagerToCoreCallback?.onTimeStampRsp(timeStamp: timeStamp, handler: handler)
-    }
-
-    func onScheduleRsp(schedule: Schedule, handler: DeviceHandler) {
-        bleCentralManagerToCoreCallback?.onScheduleRsp(schedule: schedule, handler: handler)
-    }
-    
-    func onHeaterTuningRsp(heaterTuning: HeaterTuning, handler: DeviceHandler) {
-        bleCentralManagerToCoreCallback?.onHeaterTuningRsp(heaterTuning: heaterTuning, handler: handler)
+    func onBatteryLevelRsp(batteryLevel: UInt16, handler: DeviceHandler) {
+        bleCentralManagerToCoreCallback?.onBatteryLevelRsp(batteryLevel: batteryLevel, handler: handler)
     }
     
     let restoreKey = "get.myId.centralManagerRestoreKey"

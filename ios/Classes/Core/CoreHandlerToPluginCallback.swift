@@ -15,11 +15,7 @@ protocol CoreHandlerToPluginCallBack {
     func onDisConnected(handler: DeviceHandler)
 
     // Data response
-    func onDeviceNameRsp(deviceName: String, handler: DeviceHandler)
     func onDeviceInfoRsp(deviceInfo: DeviceInfo, handler: DeviceHandler)
-    func onBasicInfoRsp(basicInfo: BasicInfo, handler: DeviceHandler)
-    func onHotBoxDataRsp(hotBoxData: HotBoxData, handler: DeviceHandler)
-    func onTimeStampRsp(timeStamp: TimeStamp, handler: DeviceHandler)
-    func onScheduleRsp(schedule: Schedule, handler: DeviceHandler)
-    func onHeaterTuningRsp(heaterTuning: HeaterTuning, handler: DeviceHandler)
+    func onImuDataRsp(imuRsp: IMUData, handler: DeviceHandler)
+    func onBatteryLevelRsp(batteryLevel: UInt16, handler: DeviceHandler)
 }

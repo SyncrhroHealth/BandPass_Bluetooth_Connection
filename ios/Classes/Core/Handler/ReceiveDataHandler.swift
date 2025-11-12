@@ -19,26 +19,11 @@ struct ReceiveDataHandler {
         switch commandCode {
         
         /// Responses
-        case .packetCmdDeviceNameResp:
-            DeviceNameRspHandler.handle(data: packet.data, handler: handler)
-
         case .packetCmdDeviceInfoResp:
             DeviceInfoRspHandler.handle(data: packet.data, handler: handler)
 
-        case .packetCmdBasicInfoResp:
-            BasicInfoRspHandler.handle(data: packet.data, handler: handler)
-
-        case .packetCmdHotboxDataResp:
-            HotBoxDataRspHandler.handle(data: packet.data, handler: handler)
-
-        case .packetCmdTimestampResp:
-            TimeStampRspHandler.handle(data: packet.data, handler: handler)
-
-        case .packetCmdScheduleResp:
-            ScheduleRspHandler.handle(data: packet.data, handler: handler)
-            
-        case .packetCmdHeaterTuningResp:
-            HeaterTuningRspHandler.handle(data: packet.data, handler: handler)
+        case .packetCmdImuDataRsp:
+            ImuDataRspHandler.handle(data: packet.data, handler: handler)
 
         default:
             print("ReceiveDataHandler - Unknown command code: \(commandCode)")

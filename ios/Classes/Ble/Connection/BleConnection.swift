@@ -112,11 +112,35 @@ class BleConnection: NSObject, CBPeripheralDelegate, BleCentralManagerToConnecti
             case BleConstant.CENTRAL_TX_CHARACTERISTIC_UUID:
                 NSLog("TX")
                 centralTxCharacteristic = charac
+                // Check maximum write length after discovering characteristics
+                checkMaximumWriteLength(peripheral: peripheral)
                 break
             default:
                 break
                 
             }
+        }
+    }
+    
+    /**
+     * Check and log the maximum write length for the peripheral.
+     * 
+     * Note: iOS doesn't support requesting a specific MTU like Android.
+     * The MTU is negotiated automatically during connection.
+     * iOS typically supports up to 185 bytes, though some devices may negotiate higher (up to 251 bytes).
+     * The actual MTU can be checked via maximumWriteValueLength(for:).
+     */
+    private func checkMaximumWriteLength(peripheral: CBPeripheral) {
+        if #available(iOS 11.0, *) {
+            let maxWriteLength = peripheral.maximumWriteValueLength(for: .withoutResponse)
+            NSLog("[BleConnection - Maximum Write Length]: \(maxWriteLength) bytes (desired: \(BleConstant.REQUEST_MTU_SIZE) bytes)")
+            
+            if maxWriteLength < BleConstant.REQUEST_MTU_SIZE {
+                NSLog("[BleConnection - Warning]: Negotiated MTU (\(maxWriteLength) bytes) is less than desired MTU (\(BleConstant.REQUEST_MTU_SIZE) bytes). Data may need to be split into smaller packets.")
+            }
+        } else {
+            // iOS 10 and earlier: default MTU is 20 bytes
+            NSLog("[BleConnection - Maximum Write Length]: 20 bytes (iOS 10 and earlier, desired: \(BleConstant.REQUEST_MTU_SIZE) bytes)")
         }
     }
     //****************************************************************************************************************

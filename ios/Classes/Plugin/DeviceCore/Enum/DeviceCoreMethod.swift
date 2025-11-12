@@ -24,22 +24,5 @@ enum DeviceCoreMethod: String {
     case reconnectDevices = "reconnectDevices"
 
     // Device commands
-    case getDeviceName = "getDeviceName"
-    case setDeviceName = "setDeviceName"
     case getDeviceInfo = "getDeviceInfo"
-    case setThermostatControlMode = "setThermostatControlMode"
-    case setManualControlMode = "setManualControlMode"
-    case getBasicInfo = "getBasicInfo"
-    case getHotBoxData = "getHotBoxData"
-    case setTimeStamp = "setTimeStamp"
-    case getTimeStamp = "getTimeStamp"
-    case getSchedule = "getSchedule"
-    case setSchedule = "setSchedule"
-    case resetFuelLevel = "resetFuelLevel"
-    case setFuelCapacity = "setFuelCapacity"
-    case setFuelPump = "setFuelPump"
-    case setSeaLevel = "setSeaLevel"
-    case setTempOffset = "setTempOffset"
-    case setHeaterTuning = "setHeaterTuning"
-    case getHeaterTuning = "getHeaterTuning"
 }

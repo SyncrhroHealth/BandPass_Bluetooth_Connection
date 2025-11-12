@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreBluetooth
+import Flutter
 
 class DeviceCoreEventPlugin: NSObject {
     private let eventHandler = DeviceCoreEventHandler()
@@ -45,15 +46,6 @@ extension DeviceCoreEventPlugin: CoreHandlerToPluginCallBack {
     
     // Data response
     
-    func onDeviceNameRsp(deviceName: String, handler: DeviceHandler) {
-        let device = DeviceCoreMethodHelper.shared.createDeviceMap(handler: handler)
-        let map : [String: Any] = [
-            "address": handler.getDevice()?.getAddress(),
-            "name": deviceName,
-        ]
-        eventHandler.send(event: DeviceCoreEvent.onDeviceNameRsp.rawValue, body: map)
-    }
-    
     func onDeviceInfoRsp(deviceInfo: DeviceInfo, handler: DeviceHandler) {
         let map: [String: Any] = [
             "address": handler.getDevice()?.getAddress() ?? "",
@@ -65,75 +57,29 @@ extension DeviceCoreEventPlugin: CoreHandlerToPluginCallBack {
         eventHandler.send(event: DeviceCoreEvent.onDeviceInfoRsp.rawValue, body: map)
     }
 
-    func onBasicInfoRsp(basicInfo: BasicInfo, handler: DeviceHandler) {
+    func onImuDataRsp(imuRsp: IMUData, handler: DeviceHandler) {
         let map: [String: Any] = [
             "address": handler.getDevice()?.getAddress() ?? "",
-            "isTempSensorAttached": basicInfo.isTempSensorAttached,
-            "deviceOperationMode": basicInfo.deviceOperationMode,
-            "modeThermostatState": basicInfo.modeThermostatState,
-            "modeManualState": basicInfo.modeManualState,
-            "runState": basicInfo.runState,
-            "fuelLevel": basicInfo.fuelLevel,
-            "currentLevel": basicInfo.currentLevel,
-            "expectedLevel": basicInfo.expectedLevel,
-            "currentTemp": basicInfo.currentTemp,
-            "expectedTemp": basicInfo.expectedTemp
+            "date": imuRsp.date,
+            "timeMs": imuRsp.timeMs,
+            "count": imuRsp.count,
+            "accelX": imuRsp.accelX,
+            "accelY": imuRsp.accelY,
+            "accelZ": imuRsp.accelZ,
+            "gyroX": imuRsp.gyroX,
+            "gyroY": imuRsp.gyroY,
+            "gyroZ": imuRsp.gyroZ,
+            "adcRaw": imuRsp.adcRaw
         ]
-        eventHandler.send(event: DeviceCoreEvent.onBasicInfoRsp.rawValue, body: map)
+        eventHandler.send(event: DeviceCoreEvent.onImuDataRsp.rawValue, body: map)
     }
 
-    func onHotBoxDataRsp(hotBoxData: HotBoxData, handler: DeviceHandler) {
+    func onBatteryLevelRsp(batteryLevel: UInt16, handler: DeviceHandler) {
         let map: [String: Any] = [
             "address": handler.getDevice()?.getAddress() ?? "",
-            "fuelLevel": hotBoxData.fuelLevel,
-            "fanSpeed": hotBoxData.fanSpeed,
-            "pumpRate": hotBoxData.pumpRate,
-            "glowPlugPower": hotBoxData.glowPlugPower,
-            "seaLevel": hotBoxData.seaLevel,
-            "supplyVoltage": hotBoxData.supplyVoltage,
-            "heaterTemp": hotBoxData.heaterTemp,
-            "fuelCapacity": hotBoxData.fuelCapacity,
-            "fuelPump": hotBoxData.fuelPump,
-            "tempOffset": hotBoxData.tempOffset,
-            "currentTemperature": hotBoxData.currentTemperature,
-            "currentLevel": hotBoxData.currentLevel,
-            "temperatureSensorIsAttached": hotBoxData.temperatureSensorIsAttached,
-            "deviceOperationMode": hotBoxData.deviceOperationMode
+            "level": Int(batteryLevel)
         ]
-        eventHandler.send(event: DeviceCoreEvent.onHotBoxDataRsp.rawValue, body: map)
-    }
-
-    func onTimeStampRsp(timeStamp: TimeStamp, handler: DeviceHandler) {
-        let map: [String: Any] = [
-            "address": handler.getDevice()?.getAddress() ?? "",
-            "epoch": timeStamp.epoch
-        ]
-        eventHandler.send(event: DeviceCoreEvent.onTimeStampRsp.rawValue, body: map)
-    }
-
-    func onScheduleRsp(schedule: Schedule, handler: DeviceHandler) {
-        let map: [String: Any] = [
-            "address": handler.getDevice()?.getAddress() ?? "",
-            "enableSchedule": schedule.enableSchedule,
-            "turnOnHour": schedule.turnOn.hour,
-            "turnOnMinute": schedule.turnOn.minute,
-            "turnOnAmOrPm": schedule.turnOn.amOrPm,
-            "turnOffHour": schedule.turnOff.hour,
-            "turnOffMinute": schedule.turnOff.minute,
-            "turnOffAmOrPm": schedule.turnOff.amOrPm
-        ]
-        eventHandler.send(event: DeviceCoreEvent.onScheduleRsp.rawValue, body: map)
-    }
-    
-    func onHeaterTuningRsp(heaterTuning: HeaterTuning, handler: DeviceHandler) {
-        let map: [String: Any] = [
-            "address": handler.getDevice()?.getAddress() ?? "",
-            "fanMax": heaterTuning.fanMax,
-            "fanMin": heaterTuning.fanMin,
-            "pumpRateMax": heaterTuning.pumpRateMax,
-            "pumpRateMin": heaterTuning.pumpRateMin,
-        ]
-        eventHandler.send(event: DeviceCoreEvent.onHeaterTuningRsp.rawValue, body: map)
+        eventHandler.send(event: DeviceCoreEvent.onBatteryLevelRsp.rawValue, body: map)
     }
 
 }

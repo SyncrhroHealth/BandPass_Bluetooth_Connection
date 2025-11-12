@@ -76,12 +76,6 @@ class CoreHandler: BleScannerCallback, BleCentralManagerToCoreCallback {
     func onConnected(handler: DeviceHandler) {
         NSLog("[CoreHandler - onConnected]")
         callBackToPlugin?.onConnected(handler: handler)
-        
-        // Set current timestamp and timezone after connection
-        let currentTime = UInt64(Date().timeIntervalSince1970 * 1000) // Convert to milliseconds
-        let timezoneOffsetSeconds = Int32(TimeZone.current.offsetSeconds())
-        TimeStampSetCmd.send(epochTime: currentTime, timezoneOffsetSeconds: timezoneOffsetSeconds, handler: handler)
-        NSLog("[CoreHandler - onConnected] Sent timestamp: \(currentTime), timezone offset: \(timezoneOffsetSeconds) seconds")
     }
     
     func onDisConnected(handler: DeviceHandler) {
@@ -89,38 +83,19 @@ class CoreHandler: BleScannerCallback, BleCentralManagerToCoreCallback {
         callBackToPlugin?.onDisConnected(handler: handler)
     }
     
-    func onDeviceNameRsp(deviceName: String, handler: DeviceHandler) {
-        NSLog("[CoreHandler - onDeviceNameRsp] deviceName: \(deviceName)")
-        callBackToPlugin?.onDeviceNameRsp(deviceName: deviceName, handler: handler)
-    }
-
     func onDeviceInfoRsp(deviceInfo: DeviceInfo, handler: DeviceHandler) {
         NSLog("[CoreHandler - onDeviceInfoRsp] deviceInfo: \(deviceInfo)")
         callBackToPlugin?.onDeviceInfoRsp(deviceInfo: deviceInfo, handler: handler)
     }
 
-    func onBasicInfoRsp(basicInfo: BasicInfo, handler: DeviceHandler) {
-        NSLog("[CoreHandler - onBasicInfoRsp] basicInfo: \(basicInfo)")
-        callBackToPlugin?.onBasicInfoRsp(basicInfo: basicInfo, handler: handler)
+    func onImuDataRsp(imuData: IMUData, handler: DeviceHandler) {
+        NSLog("[CoreHandler - onImuDataRsp] imuData: \(imuData)")
+        callBackToPlugin?.onImuDataRsp(imuRsp: imuData, handler: handler)
     }
 
-    func onHotBoxDataRsp(hotBoxData: HotBoxData, handler: DeviceHandler) {
-        NSLog("[CoreHandler - onHotBoxDataRsp] hotBoxData: \(hotBoxData)")
-        callBackToPlugin?.onHotBoxDataRsp(hotBoxData: hotBoxData, handler: handler)
-    }
-
-    func onTimeStampRsp(timeStamp: TimeStamp, handler: DeviceHandler) {
-        NSLog("[CoreHandler - onTimeStampRsp] timeStamp: \(timeStamp)")
-        callBackToPlugin?.onTimeStampRsp(timeStamp: timeStamp, handler: handler)
-    }
-
-    func onScheduleRsp(schedule: Schedule, handler: DeviceHandler) {
-        NSLog("[CoreHandler - onScheduleRsp] schedule: \(schedule)")
-        callBackToPlugin?.onScheduleRsp(schedule: schedule, handler: handler)
-    }
-    
-    func onHeaterTuningRsp(heaterTuning: HeaterTuning, handler: DeviceHandler) {
-        NSLog("[CoreHandler - onHeaterTuningRsp] heaterTuning: \(heaterTuning)")
+    func onBatteryLevelRsp(batteryLevel: UInt16, handler: DeviceHandler) {
+        NSLog("[CoreHandler - onBatteryLevelRsp] batteryLevel: \(batteryLevel)")
+        callBackToPlugin?.onBatteryLevelRsp(batteryLevel: batteryLevel, handler: handler)
     }
 
 }

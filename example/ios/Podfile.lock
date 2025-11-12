@@ -3,6 +3,8 @@ PODS:
     - Flutter
   - bandpass_ble_connection (0.0.1):
     - Flutter
+    - RxSwift (~> 6.0)
+    - SwiftyJSON (~> 5.0)
   - device_info_plus (0.0.1):
     - Flutter
   - Flutter (1.0.0)
@@ -12,6 +14,8 @@ PODS:
     - Flutter
   - permission_handler_apple (9.3.0):
     - Flutter
+  - RxSwift (6.9.0)
+  - SwiftyJSON (5.0.2)
 
 DEPENDENCIES:
   - app_settings (from `.symlinks/plugins/app_settings/ios`)
@@ -21,6 +25,11 @@ DEPENDENCIES:
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+
+SPEC REPOS:
+  trunk:
+    - RxSwift
+    - SwiftyJSON
 
 EXTERNAL SOURCES:
   app_settings:
@@ -40,12 +49,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   app_settings: 3507c575c2b18a462c99948f61d5de21d4420999
-  bandpass_ble_connection: 2ff453d4b6ac41f3da09402f37ce278583075730
+  bandpass_ble_connection: a724bfc070b537dc4ac4d50d0ae1ff51b54d8c11
   device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
   location: 155caecf9da4f280ab5fe4a55f94ceccfab838f8
   permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
+  RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
+  SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
 
 PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
 

@@ -23,39 +23,18 @@ protocol BleCentralManagerToCoreCallback {
     func onDisConnected(handler: DeviceHandler)
 
     // DATA RESPONSE
-
-    /**
-     Receive device name response
-     */
-    func onDeviceNameRsp(deviceName: String, handler: DeviceHandler)
-
     /**
      Receive device info response
      */
     func onDeviceInfoRsp(deviceInfo: DeviceInfo, handler: DeviceHandler)
 
     /**
-     Receive basic info response
+     Receive IMU data response
      */
-    func onBasicInfoRsp(basicInfo: BasicInfo, handler: DeviceHandler)
+    func onImuDataRsp(imuData: IMUData, handler: DeviceHandler)
 
     /**
-     Receive hot box data response
+     Receive battery level response
      */
-    func onHotBoxDataRsp(hotBoxData: HotBoxData, handler: DeviceHandler)
-
-    /**
-     Receive timestamp response
-     */
-    func onTimeStampRsp(timeStamp: TimeStamp, handler: DeviceHandler)
-
-    /**
-     Receive schedule response
-     */
-    func onScheduleRsp(schedule: Schedule, handler: DeviceHandler)
-    
-    /**
-     Receive heater tuning response
-     */
-    func onHeaterTuningRsp(heaterTuning: HeaterTuning, handler: DeviceHandler)
+    func onBatteryLevelRsp(batteryLevel: UInt16, handler: DeviceHandler)
 }

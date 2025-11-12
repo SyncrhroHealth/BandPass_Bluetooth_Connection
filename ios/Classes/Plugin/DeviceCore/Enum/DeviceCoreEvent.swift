@@ -15,11 +15,7 @@ enum DeviceCoreEvent: String {
     case onDeviceDisconnected = "onDeviceDisconnected"
 
     // Data response
-    case onDeviceNameRsp = "onDeviceNameRsp"
     case onDeviceInfoRsp = "onDeviceInfoRsp"
-    case onBasicInfoRsp = "onBasicInfoRsp"
-    case onHotBoxDataRsp = "onHotBoxDataRsp"
-    case onTimeStampRsp = "onTimeStampRsp"
-    case onScheduleRsp = "onScheduleRsp"
-    case onHeaterTuningRsp = "onHeaterTuningRsp"
+    case onImuDataRsp = "onImuDataRsp"
+    case onBatteryLevelRsp = "onBatteryLevelRsp"
 }
