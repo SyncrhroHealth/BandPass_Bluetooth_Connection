@@ -46,11 +46,16 @@ class DeviceCoreMethodPlugin: NSObject {
             DeviceCoreMethodHelper.shared.reconnect(params: params, result: result)
             break
         case DeviceCoreMethod.reconnectDevices.rawValue:
-//            DeviceCoreMethodHelper.shared.isBleEnabled(params: params, result: result)
+            // TODO: Implement reconnectDevices
+            result(true)
+            break
+            
+        case DeviceCoreMethod.getDeviceInfo.rawValue:
+            DeviceCoreMethodHelper.shared.getDeviceInfo(params: params, result: result)
             break
             
         default:
-            result(nil)
+            result(FlutterMethodNotImplemented)
         }
     }
     

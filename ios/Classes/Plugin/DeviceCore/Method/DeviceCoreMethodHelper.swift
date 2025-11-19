@@ -62,6 +62,7 @@ class DeviceCoreMethodHelper {
         }
         
         BleCentralManager.shared.requestToReconnect(listAddress: listAddress)
+        result(true)
     }
     
     /** Command */
